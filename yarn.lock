@@ -6312,6 +6312,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csv-reader@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "csv-reader@npm:1.0.6"
+  checksum: ca1e46adc1ad9854b467872e864937516005d34a7d444a2d20b8dc21e6e4a2e240a5fb126ed883ec864701caeea391728114625fd2d7ec5247f55c1e1197a5eb
+  languageName: node
+  linkType: hard
+
 "current-device@npm:0.10.1":
   version: 0.10.1
   resolution: "current-device@npm:0.10.1"
@@ -9160,6 +9167,7 @@ fsevents@^1.2.7:
     connected-react-router: 6.8.0
     css-loader: 3.6.0
     cssnano: 4.1.10
+    csv-reader: ^1.0.6
     current-device: 0.10.1
     date-fns: 2.14.0
     debug: 4.1.1
