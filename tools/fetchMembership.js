@@ -9,11 +9,13 @@ async function main() {
   const itemsWithoutCrunchbase = result.filter( (x) => !x.CrunchBaseURL)
   const itemsWithCrunchbase = result.filter( (x) => !!x.CrunchBaseURL)
 
-  // for (var x of _.orderBy(result, 'Name')) {
-    // if (!x.Logo) {
-      // console.info(x.Name);
-    // }
-  // }
+  for (var x of _.orderBy(result, 'Name')) {
+    if (!x.Logo) {
+      console.info(x.Name);
+    }
+  }
+  console.info(item);
+  process.exit(0);
   // console.info(itemsWithoutCrunchbase.length, itemsWithCrunchbase.length);
 
   const members = result.map( function(item) {
