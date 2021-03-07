@@ -340,8 +340,8 @@ async function main () {
   var hasEmptyCrunchbase = false;
   await Promise.mapSeries(itemsWithExtraFields, async function(item) {
     if (!item.crunchbaseData) {
-      hasEmptyCrunchbase = true;
-      await failOnMultipleErrors(`${item.name} either has no crunchbase entry or it is invalid`);
+      //hasEmptyCrunchbase = true;
+      //await failOnMultipleErrors(`${item.name} either has no crunchbase entry or it is invalid`);
     }
   });
   if (hasEmptyCrunchbase) {
@@ -352,8 +352,8 @@ async function main () {
   var hasBadCrunchbase = false;
   await Promise.mapSeries(itemsWithExtraFields, async function(item) {
     if (item.crunchbase && item.crunchbase.indexOf('https://www.crunchbase.com/organization/') !== 0) {
-      hasBadCrunchbase = true;
-      await failOnMultipleErrors(`${item.name}  has a crunchbase ${item.crunchbase} which does not start with 'https://www.crunchbase.com/organization'`);
+      //hasBadCrunchbase = true;
+      //await failOnMultipleErrors(`${item.name}  has a crunchbase ${item.crunchbase} which does not start with 'https://www.crunchbase.com/organization'`);
     }
   });
   if (hasBadCrunchbase) {
@@ -488,6 +488,7 @@ async function main () {
 
 
   // now update membership, only after we've checked crunchbase issues properly
+  /* comment since we don't have crunchbase
   const members = await getMembers();
   _.each(itemsWithExtraFields, function(item) {
     const membership = (function() {
@@ -547,6 +548,7 @@ async function main () {
   if (hasFatalErrors()) {
     process.exit(1);
   }
+  */
 
   const extractOptions = function(name) {
     return _.chain(itemsWithExtraFields).map(function(x) {
@@ -605,7 +607,8 @@ async function main () {
 
   const generateHeadquarters = function() {
     const values = _.uniq(itemsWithExtraFields.map(function(item) {
-      return {headquarters: item.headquarters, country: item.crunchbaseData.country};
+      //return {headquarters: item.headquarters, country: item.crunchbaseData.country};
+      return {headquarters: item.headquarters, country: ""};
     }));
     const grouped  = _.groupBy(values, (x) => x.country);
     const keys = _.sortBy(_.keys(grouped), (country) => country === 'Antarctica' ? 'ZZZ' : country);
@@ -659,11 +662,13 @@ async function main () {
     }));
   };
 
+      /*
   const generateCrunchbaseSlugs = () => {
     const urls = _.flatten(itemsWithExtraFields.map(({crunchbase, crunchbaseData}) => [crunchbase, ...crunchbaseData.parents || []]));
     const slugs = urls.filter((url) => url).map((crunchbaseUrl) => crunchbaseUrl.split("/").pop());
     return [...new Set(slugs)].sort()
   }
+  */
 
   const generateLanguages = () => {
     const languages = _.flatten(itemsWithExtraFields.map(({github_data}) => ((github_data || {}).languages || []).map( (x) => encodeURIComponent(x.name) ) ));
@@ -675,7 +680,7 @@ async function main () {
     landscape: pack(generateLandscapeHierarchy()),
     license: pack(generateLicenses()),
     headquarters: pack(generateHeadquarters()),
-    crunchbaseSlugs: generateCrunchbaseSlugs(),
+    //crunchbaseSlugs: generateCrunchbaseSlugs(),
     languages: generateLanguages(),
   }
 

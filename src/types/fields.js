@@ -206,9 +206,12 @@ const fields = {
     id: 'parent',
     url: 'parent',
     isArray: true,
+    values: { id: "id" },
+      /*
     values: lookups.crunchbaseSlugs.map((id) => {
       return { id: id }
     }),
+    */
     filterFn: (parents, _, record) => parents.length === 0 || parents.find(parent => isParent(parent, record))
   },
   language: {

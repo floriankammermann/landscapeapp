@@ -21,7 +21,8 @@ const isLargeFn = ({ relation, category, member, categoryAttrs }) => {
     const membershipInfo = settings.membership[member];
     return membershipInfo && !!membershipInfo.is_large;
   }
-  return !!categoryAttrs.isLarge || !!relationInfo.big_picture_order;
+  //return !!categoryAttrs.isLarge || !!relationInfo.big_picture_order;
+  return !!categoryAttrs.isLarge; 
 }
 
 // Compute if items are large and/or visible.
