@@ -4,7 +4,7 @@ This is an attempt to build custom landscapes, based on https://github.com/cncf/
 
 ## Goals
 * run the landscapeapp locally without any API Keys 
-* be able to povide custom data structures
+* be able to provide custom data structures
 
 ## How to run it
 * the tests are done with the [cicd foundation landscape](https://github.com/cdfoundation/cdf-landscape)
