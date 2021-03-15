@@ -12,7 +12,6 @@ import InternalLink from './InternalLink';
 import fields from '../types/fields';
 import isGoogle from '../utils/isGoogle';
 import settings from 'public/settings.json';
-import TweetButton from './TweetButton';
 import TwitterTimeline from "./TwitterTimeline";
 import {Bar, Pie, defaults} from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
@@ -465,7 +464,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                 <div style={cellStyle}>{openSourceTag(itemInfo.oss)}</div>
                 <div style={cellStyle}>{licenseTag(itemInfo)}</div>
                 <div style={cellStyle}>{badgeTag(itemInfo)}</div>
-                <div style={cellStyle}><TweetButton/></div>
               </div>
             </div>
   </Fragment>;
@@ -486,7 +484,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                 <div style={cellStyle}>{openSourceTag(itemInfo.oss)}</div>
                 <div style={cellStyle}>{licenseTag(itemInfo)}</div>
                 <div style={cellStyle}>{badgeTag(itemInfo)}</div>
-                <div style={cellStyle}><TweetButton/></div>
                 {chart(itemInfo)}
                 {participation(itemInfo)}
               </div>

@@ -10,7 +10,6 @@ import Sorting from './Sorting';
 import Ad from './Ad';
 import AutoSizer from './CustomAutoSizer';
 import OutboundLink from './OutboundLink';
-import TweetButton from './TweetButton';
 import Footer from './Footer';
 import EmbeddedFooter from './EmbeddedFooter';
 
@@ -193,7 +192,6 @@ const HomePage = _ => {
             <div className="right-buttons">
               <ZoomButtons/>
               <FullscreenButton/>
-              <TweetButton cls="tweet-button-main"/>
             </div>
             { isBigPicture &&
             <AutoSizer>
