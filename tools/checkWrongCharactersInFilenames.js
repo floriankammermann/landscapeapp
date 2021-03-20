@@ -20,11 +20,13 @@ async function main() {
   _.each(source.landscape, function(category) {
     _.each(category.subcategories, function(subcategory) {
       _.each(subcategory.items, function(item) {
+        /*
         if (!item.logo) {
           const error = `FATAL: entry ${item.name} is missing a logo`;
           console.info(error);
           setFatalError(error);
         }
+        */
         if (item.logo && item.logo.indexOf('/') === -1) {
           const logo = item.logo;
           const processedLogo = _.deburr(logo);
@@ -49,19 +51,21 @@ async function main() {
   _.each(processedSource.landscape, function(category) {
     _.each(category.subcategories, function(subcategory) {
       _.each(subcategory.items, function(item) {
-        const logo = item.image_data.fileName;
-        const processedLogo = _.deburr(logo);
-        if (hasNonAscii(processedLogo)) {
-          const error = `FATAL: entry ${item.name} has non ascii characters in a logo ${logo}`;
-          console.info(error);
-          setFatalError(error);
-        }
-        else if (logo !== processedLogo) {
-          item.image_data.fileName = processedLogo;
-          const oldFile = path.resolve(projectPath, 'cached_logos', logo);
-          const newFile = path.resolve(projectPath, 'cached_logos', processedLogo);
-          require('fs').renameSync(oldFile, newFile);
-          console.info(`RENAMED: ${logo} => ${processedLogo}`);
+        if (item.logo) {
+            const logo = item.image_data.fileName;
+            const processedLogo = _.deburr(logo);
+            if (hasNonAscii(processedLogo)) {
+              const error = `FATAL: entry ${item.name} has non ascii characters in a logo ${logo}`;
+              console.info(error);
+              setFatalError(error);
+            }
+            else if (logo !== processedLogo) {
+              item.image_data.fileName = processedLogo;
+              const oldFile = path.resolve(projectPath, 'cached_logos', logo);
+              const newFile = path.resolve(projectPath, 'cached_logos', processedLogo);
+              require('fs').renameSync(oldFile, newFile);
+              console.info(`RENAMED: ${logo} => ${processedLogo}`);
+            }
         }
       });
     });

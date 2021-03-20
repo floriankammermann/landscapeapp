@@ -93,7 +93,7 @@ $mobilewidth: 1000px;
   }
   &-main {font-size: 0.8rem; line-height: 130%; color: $navy;}
   &-scroll {
-    position: absolute; top: 40px; left: calc(40% - 20px); bottom: 40px; right: 20px; padding-right: 20px; overflow: auto;
+    top: 40px; left: 20px; bottom: 40px; right: 20px; padding-right: 20px; overflow: auto;
   }
   &-name {font-size: 2rem; line-height: 130%;}
   &-parent {font-weight: bold; margin-bottom: 0.8rem;}

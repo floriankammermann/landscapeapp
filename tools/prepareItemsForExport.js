@@ -14,7 +14,7 @@ const fields = settings => [{
   value: 'homepage_url'
 }, {
   label: 'Logo',
-  value: (row) => `${settings.global.website}/logos/${row.image_data.fileName}`
+  value: 'nologo'
 }, {
   label: 'Twitter',
   value: 'twitter'

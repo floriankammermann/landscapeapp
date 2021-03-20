@@ -12,7 +12,6 @@ import InternalLink from './InternalLink';
 import fields from '../types/fields';
 import isGoogle from '../utils/isGoogle';
 import settings from 'public/settings.json';
-import TwitterTimeline from "./TwitterTimeline";
 import {Bar, Pie, defaults} from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import classNames from 'classnames'
@@ -32,10 +31,6 @@ const formatDate = function(x) {
   }
   return relativeDate(new Date(x));
 };
-const formatTwitter = function(x) {
-  const name = x.split('/').slice(-1)[0];
-  return '@' + name;
-}
 
 function getRelationStyle(relation) {
   const relationInfo = fields.relation.valuesMap[relation]
@@ -48,19 +43,6 @@ function getRelationStyle(relation) {
   }
 }
 
-
-const showTwitter = !isGoogle();
-
-const iconGithub = <svg viewBox="0 0 24 24">
-    <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58
-    9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81
-    5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18
-    9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5
-     6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84
-    13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39
-    18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68
-    14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z" />
-    </svg>;
 
 const linkTag = (label, { name, url = null, color = 'blue', multiline = false }) => {
   return (<InternalLink to={url || '/'} className={`tag tag-${color} ${multiline ? 'multiline' : ''}`}>
@@ -346,24 +328,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
     )
     return (<span>{[categoryMarkup, separator, subcategoryMarkup]}</span>);
   }
-  const twitterElement = itemInfo.twitter &&
-    <div className="product-property row">
-      <div className="product-property-name col col-40">Twitter</div>
-      <div className="product-property-value col col-60">
-        <OutboundLink to={itemInfo.twitter}>{formatTwitter(itemInfo.twitter)}</OutboundLink>
-      </div>
-    </div>;
-
-  const latestTweetDateElement = itemInfo.twitter && (
-    <div className="product-property row">
-      <div className="product-property-name col col-50">Latest Tweet</div>
-      <div className="product-property-value col col-50">
-        { itemInfo.latestTweetDate && (
-          <OutboundLink to={itemInfo.twitter}>{formatDate(itemInfo.latestTweetDate)}</OutboundLink>
-        )}
-      </div>
-    </div>
-  );
 
   const firstCommitDateElement = itemInfo.firstCommitDate  && (
     <div className="product-property row">
@@ -453,42 +417,10 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
     overflow: 'hidden'
   };
 
-  const productLogoAndTags = <Fragment>
-            <div className="product-logo" style={getRelationStyle(itemInfo.relation)}>
-              <img src={assetPath(itemInfo.href)} className='product-logo-img' alt={itemInfo.name}/>
-            </div>
-            <div className="product-tags">
-              <div className="product-badges" style = {{width: Math.min(300, innerWidth - 110)}} >
-                <div style={cellStyle}>{projectTag(itemInfo)}</div>
-                <div style={cellStyle}>{parentTag(itemInfo)}</div>
-                <div style={cellStyle}>{openSourceTag(itemInfo.oss)}</div>
-                <div style={cellStyle}>{licenseTag(itemInfo)}</div>
-                <div style={cellStyle}>{badgeTag(itemInfo)}</div>
-              </div>
-            </div>
-  </Fragment>;
-
   const charts = <Fragment>
     {chart(itemInfo)}
     {participation(itemInfo)}
   </Fragment>
-
-  const productLogoAndTagsAndCharts = <Fragment>
-            <div className="product-logo" style={getRelationStyle(itemInfo.relation)}>
-              <img src={assetPath(itemInfo.href)} className='product-logo-img'/>
-            </div>
-            <div className="product-tags">
-              <div className="product-badges" style = {{width: 300}} >
-                <div style={cellStyle}>{projectTag(itemInfo)}</div>
-                <div style={cellStyle}>{parentTag(itemInfo)}</div>
-                <div style={cellStyle}>{openSourceTag(itemInfo.oss)}</div>
-                <div style={cellStyle}>{licenseTag(itemInfo)}</div>
-                <div style={cellStyle}>{badgeTag(itemInfo)}</div>
-                {chart(itemInfo)}
-                {participation(itemInfo)}
-              </div>
-            </div>
-  </Fragment>;
 
   const shortenUrl = (url) => url.replace(/http(s)?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
@@ -526,10 +458,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
 
                       { idx === 0 && itemInfo.repos.length > 1 && <span className="primary-repo">(primary)</span> }
 
-                      <span className="product-repo-stars">
-                        <SvgIcon style={{ color: '#7b7b7b' }}>{iconGithub}</SvgIcon>
-                        <StarIcon style={{ color: '#7b7b7b' }}/>{formatNumber(stars)}
-                      </span>
                     </div>
                   </div>
                 })}
@@ -544,11 +472,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                     }
                     <span className="product-repo-stars-label">
                       total:
-                    </span>
-                    <span className="product-repo-stars">
-                      <SvgIcon style={{color: '#7b7b7b'}}>{iconGithub}</SvgIcon>
-                      <StarIcon style={{color: '#7b7b7b'}} />
-                      {itemInfo.starsAsText}
                     </span>
                   </div>
                 </div>
@@ -573,8 +496,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                 }
                 <div className="row">
                   { innerWidth <= 1000 &&  <div className="col col-50 single-column">
-                    { twitterElement }
-                    { latestTweetDateElement }
                     { firstCommitDateElement }
                     { latestCommitDateElement }
                     { contributorsCountElement }
@@ -585,7 +506,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                     { tickerElement }
                   </div> }
                   { innerWidth > 1000 && <div className="col col-50">
-                    { twitterElement }
                     { firstCommitDateElement }
                     { contributorsCountElement }
                     { headquartersElement }
@@ -594,7 +514,6 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
                   </div>
                   }
                   { innerWidth > 1000 && <div className="col col-50">
-                      { latestTweetDateElement }
                       { latestCommitDateElement }
                       { releaseDateElement }
                       { crunchbaseEmployeesElement }
@@ -613,20 +532,16 @@ const ItemDialogContent = ({ itemInfo, loading }) => {
             <KeyHandler keyEventName="keydown" keyValue="ArrowUp" onKeyHandle={handleUp} />
             <KeyHandler keyEventName="keydown" keyValue="ArrowDown" onKeyHandle={handleDown} />
 
-            { !scrollAllContent && !isGoogle() && productLogoAndTagsAndCharts }
 
             <div className="product-scroll" ref={(x) => productScrollEl = x }>
               { !scrollAllContent && productInfo }
               { scrollAllContent && <div className="landscape-layout">
-                  {productLogoAndTags}
                   <div className="right-column">{productInfo}</div>
                   {charts}
                 </div>
               }
 
-              { showTwitter && itemInfo.twitter && <TwitterTimeline twitter={itemInfo.twitter} />}
             </div>
-            { !scrollAllContent && isGoogle() && productLogoAndTags }
         </div>
   );
 }

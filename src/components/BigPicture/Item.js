@@ -58,17 +58,15 @@ const SmallItem = ({ item, onClick }) => {
   const isMember = item.category === settings.global.membership;
   return <>
     <style jsx>{`
-      img {
+      span {
         cursor: pointer;
-        width: ${smallItemWidth}px;
-        height: ${smallItemHeight}px;
         border: 1px solid ${isMember ? 'white' : 'grey'};
         border-radius: 2px;
         padding: 1px;
         visibility: ${item.isVisible ? 'visible' : 'hidden'};
       }
     `}</style>
-    <img data-href={item.id} loading="lazy" src={assetPath(item.href)} onClick={onClick} alt={item.name} />
+    <span data-href={item.id} onClick={onClick}>{item.name}</span>
   </>
 }
 

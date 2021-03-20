@@ -405,8 +405,9 @@ async function main () {
   var hasBadImages = false;
   await Promise.mapSeries(itemsWithExtraFields, async function(item) {
     if (!item.image_data) {
-      await failOnMultipleErrors(`Item ${item.name} has no image_data`);
-      hasBadImages = true;
+       // do not fail on no image data
+      //await failOnMultipleErrors(`Item ${item.name} has no image_data`);
+      //hasBadImages = true;
     } else {
       const imageFileName = `${projectPath}/cached_logos/` + item.image_data.fileName;
       if (!require('fs').existsSync(imageFileName)) {
