@@ -11,8 +11,8 @@ const getText = ({summary}) => {
     return 'There are no cards matching your filters';
   }
   const cardsText = summary.total === 1 ? 'card' : 'cards';
-  const startText = `You are viewing ${formatNumber(summary.total)} ${cardsText} with a total`;
-  const starsSection = summary.stars ? `of ${formatNumber(summary.stars)} stars` : null;
+  const startText = `You are viewing ${formatNumber(summary.total)} ${cardsText}`;
+  /*const starsSection = summary.stars ? `of ${formatNumber(summary.stars)} stars` : null;
   const marketCapSection = summary.marketCap ? `market cap of $${millify(summary.marketCap)}` : null;
   const fundingSection = summary.funding ? `funding of $${millify(summary.funding)}` : null;
   if (!marketCapSection && !fundingSection && !starsSection) {
@@ -24,6 +24,8 @@ const getText = ({summary}) => {
   const lastPart = _.slice(parts, -1)[0];
   const text = [startPartsText, lastPart].filter( (x) => !!x).join(' and ');
   return `${startText} ${text}.`;
+  */
+  return `${startText}`;
 }
 
 const Summary = _ => {
