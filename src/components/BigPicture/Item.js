@@ -60,13 +60,17 @@ const SmallItem = ({ item, onClick }) => {
     <style jsx>{`
       span {
         cursor: pointer;
+        width: ${smallItemWidth}px;
+        height: ${smallItemHeight}px;
         border: 1px solid ${isMember ? 'white' : 'grey'};
         border-radius: 2px;
         padding: 1px;
         visibility: ${item.isVisible ? 'visible' : 'hidden'};
+        overflow-wrap: break-word;
+        overflow:hidden;
       }
     `}</style>
-    <span data-href={item.id} onClick={onClick}>{item.name}</span>
+    <span data-href={item.id} onClick={onClick} title={item.name}>{item.name}</span>
   </>
 }
 
