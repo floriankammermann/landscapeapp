@@ -66,6 +66,7 @@ const SmallItem = ({ item, onClick }) => {
         border-radius: 2px;
         padding: 1px;
         visibility: ${item.isVisible ? 'visible' : 'hidden'};
+        font-size: 10px;
         overflow-wrap: break-word;
         overflow:hidden;
       }
