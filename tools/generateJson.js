@@ -308,6 +308,7 @@ async function main () {
 
 
   // protect us from duplicates
+  /* we allow duplicates
   var hasDuplicates = false;
   await Promise.mapSeries(_.values(_.groupBy(itemsWithExtraFields, 'name')),async function(duplicates) {
     if (duplicates.length > 1 && duplicates.find(({allow_duplicate_repo}) => !allow_duplicate_repo)) {
@@ -321,6 +322,7 @@ async function main () {
     await reportFatalErrors();
     require('process').exit(1);
   }
+  */
 
   // protect us from duplicate repo_urls
   var hasDuplicateRepos = false;
