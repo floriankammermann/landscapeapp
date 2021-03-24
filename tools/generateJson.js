@@ -275,6 +275,7 @@ async function main () {
     }
   });
 
+  /*
   if (settings.global.flags.companies) {
     // Handle companies in a special way
     const hasCompanyCategory = (function() {
@@ -297,7 +298,9 @@ async function main () {
       }
     });
   }
+  */
 
+  /*
   if (settings.global.flags.hide_license_for_categories) {
     _.each(itemsWithExtraFields, function(item) {
       if (settings.global.flags.hide_license_for_categories.indexOf(item.category) !== -1) {
@@ -305,7 +308,7 @@ async function main () {
       }
     });
   }
-
+  */
 
   // protect us from duplicates
   /* we allow duplicates

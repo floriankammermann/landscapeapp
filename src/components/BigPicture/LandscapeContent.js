@@ -23,10 +23,15 @@ const LandscapeContent = ({zoom, padding = 10 }) => {
                                  key={element.url}
       />
     }
+
     if (element.type === 'LandscapeInfo') {
+      // we don't need LandscapeInfo
+      return (null)
+      /*
       return <LandscapeInfo {..._.pick(element, ['width', 'height', 'top', 'left']) } childrenInfo={element.children}
                             key='landscape-info'
       />
+      */
     }
 
     const category = groupedItems.find(c => c.key === element.category) || {}
