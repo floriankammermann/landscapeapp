@@ -131,7 +131,7 @@ const fetchCrunchbaseOrganization = async id => {
     }
   });
 }
-
+/*
 export async function fetchData(name) {
   const result = await fetchCrunchbaseOrganization(name)
   const mapAcquisitions = function(a) {
@@ -281,3 +281,4 @@ export async function fetchCrunchbaseEntries({cache, preferCache}) {
   _.each(fatalErrors, (x) => addFatal(x));
   return result;
 }
+*/
