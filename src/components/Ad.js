@@ -7,6 +7,9 @@ import assetPath from '../utils/assetPath'
 const Ad = () => {
   const entries = settings.ads;
 
+  // don't include add
+  return (null)
+
   return <div id="kubecon">
     { entries.map( (entry) => (
         <OutboundLink className="sidebar-event" key={entry.image} to={entry.url} title={entry.title}>
