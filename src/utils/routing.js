@@ -3,7 +3,7 @@ import fields, { sortOptions } from '../types/fields'
 import { isArray } from 'lodash'
 
 const defaultSort = 'name'
-const defaultGrouping = 'relation'
+const defaultGrouping = 'landscape'
 
 const compact = obj => {
   return Object.entries(obj).reduce((result, [key, value]) => {

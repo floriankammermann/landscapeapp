@@ -76,26 +76,6 @@ const relationField = (function() {
 
 const fields = {
   relation: relationField,
-  stars: {
-    id: 'stars',
-    label: 'Stars',
-  },
-  license: {
-    id: 'license',
-    label: 'License',
-    isArray: true,
-    values: [].concat(unpack(lookups.license) || []),
-    processValuesBeforeSaving: function(values) {
-      return processValuesBeforeSaving({options: fields.license.values, values: values});
-    },
-    processValuesBeforeLoading: function(values) {
-      return processValuesBeforeLoading({options: fields.license.values, values: values});
-    }
-  },
-  amount: {
-    id: 'amount',
-    label: 'Market Cap / Funding of organization',
-  },
   organization: {
     id: 'organization',
     label: 'Organization',
@@ -127,52 +107,6 @@ const fields = {
       return processValuesBeforeLoading({options: fields.landscape.values, values: values});
     }
   },
-  firstCommitDate: {
-    id: 'firstCommitDate',
-    label: 'Project Starting Date',
-    url: 'first-commit',
-    orderFn: function(x) {
-      if (x.value) {
-        return x.value;
-      }
-      return x;
-    }
-  },
-  latestCommitDate: {
-    id: 'latestCommitDate',
-    label: 'Project Latest Date',
-    url: 'latest-commit',
-    orderFn: function(x) {
-      if (x.value) {
-        return x.value;
-      }
-      return x;
-    }
-  },
-  latestTweetDate: {
-    id: 'latestTweetDate',
-    label: 'Latest Tweet Date',
-    url: 'latest-tweet',
-    orderFn: function(x) {
-      if (!x) {
-        return 'ZZZZZZ'; // put it to the end
-      }
-      if (x.value) {
-        return x.value;
-      }
-      return x;
-    }
-  },
-  contributorsCount: {
-    id: 'contributorsCount',
-    label: 'Contributors #',
-    url: 'contributors'
-  },
-  commitsThisYear: {
-    id: 'commitsThisYear',
-    label: 'Commits this year',
-    url: 'commits'
-  },
   bestPracticeBadgeId: {
     id: 'bestPracticeBadgeId',
     label: 'Badge Id',
@@ -187,18 +121,6 @@ const fields = {
       if (filter === false) {
         return !value;
       }
-    },
-    values: [{id: true, label: 'Yes', url: 'yes'}, {id: false, label: 'No', url: 'no'}]
-  },
-  enduser: {
-    id: 'enduser',
-    label: 'End User',
-    url: 'enduser',
-    filterFn: function(filter, value) {
-      if (filter === null) {
-        return true;
-      }
-      return filter === true ? value : !value;
     },
     values: [{id: true, label: 'Yes', url: 'yes'}, {id: false, label: 'No', url: 'no'}]
   },
@@ -324,6 +246,7 @@ export function filterFn({field, filters}) {
   return function(x) {
     // can be null, id, [] or [id1, id2, id3 ]
     const value = x[field];
+      //console.log("fields field: "+ field + " fieldinfo: " + fieldInfo)
     if (fieldInfo.filterFn) {
       return fieldInfo.filterFn(filter, value, x);
     }
@@ -341,6 +264,7 @@ export function filterFn({field, filters}) {
   };
 }
 export function getGroupingValue({item, grouping, filters}) {
+  //console.log("getGroupingValue item: " + item + " grouping: " + grouping)
   const { id, groupFn } = fields[grouping];
   return groupFn ? groupFn({ item , filters }) : item[id];
 }

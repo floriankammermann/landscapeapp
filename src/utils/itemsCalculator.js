@@ -24,16 +24,14 @@ export const getFilteredItems = createSelector(
   ],
   function(data, filters, mainContentMode) {
     var filterHostedProject = filterFn({field: 'relation', filters});
-    var filterByLicense = filterFn({field: 'license', filters});
     var filterByOrganization = filterFn({field: 'organization', filters});
     var filterByHeadquarters = filterFn({field: 'headquarters', filters});
     var filterByLandscape = mainContentMode === 'card-mode' ? filterFn({field: 'landscape', filters}) : _ => true;
     var filterByBestPractices = filterFn({field: 'bestPracticeBadgeId', filters});
-    var filterByEnduser = filterFn({field: 'enduser', filters});
     var filterByParent = filterFn({field: 'parents', filters});
     var filterByLanguage = filterFn({field: 'language', filters});
     return data.filter(function(x) {
-      return filterHostedProject(x) && filterByLicense(x) && filterByOrganization(x) && filterByHeadquarters(x) && filterByLandscape(x) && filterByBestPractices(x) && filterByEnduser(x) && filterByParent(x) && filterByLanguage(x);
+      return filterHostedProject(x) && filterByOrganization(x) && filterByHeadquarters(x) && filterByLandscape(x) && filterByBestPractices(x) && filterByParent(x) && filterByLanguage(x);
     });
   }
 );
@@ -58,15 +56,13 @@ const getFilteredItemsForBigPicture = createSelector(
   ],
   function(data, filters) {
     var filterHostedProject = filterFn({field: 'relation', filters});
-    var filterByLicense = filterFn({field: 'license', filters});
     var filterByOrganization = filterFn({field: 'organization', filters});
     var filterByHeadquarters = filterFn({field: 'headquarters', filters});
     var filterByBestPractices = filterFn({field: 'bestPracticeBadgeId', filters});
-    var filterByEnduser = filterFn({field: 'enduser', filters});
     var filterByParent = filterFn({field: 'parents', filters});
     var filterByLanguage = filterFn({field: 'language', filters});
     return addExtraFields(data.filter(function(x) {
-      return filterHostedProject(x) && filterByLicense(x) && filterByOrganization(x) && filterByHeadquarters(x) && filterByBestPractices(x) && filterByEnduser(x) && filterByParent(x) && filterByLanguage(x);
+      return filterHostedProject(x) && filterByOrganization(x) && filterByHeadquarters(x) && filterByBestPractices(x) && filterByParent(x) && filterByLanguage(x);
     }));
   }
 );
@@ -150,8 +146,7 @@ const getGroupedItems = createSelector(
       const newFilters = {...filters, [grouping]: fieldInfo.isArray ? [properKey] : properKey};
       return {
         key: properKey,
-        header: "",
-        //header: groupingLabel(grouping, properKey),
+        header: groupingLabel(grouping, properKey),
         items: value,
         href: "https://cncf.io"
         //href: stringifyParams({filters: newFilters, grouping, sortField})
@@ -198,6 +193,7 @@ const getGroupedItemsForMainLandscape = createSelector(
     (params, entries, landscapeSettings) => landscapeSettings
   ],
   function(items, allItems, grouping, filters, sortField, landscapeSettings) {
+    //console.log("called getGroupedItemsForMainLandscape")
     const categories = getLandscapeCategories({landscapeSettings, landscape });
     const itemsMap = groupAndSort(items, bigPictureSortOrder)
     const allItemsMap = groupAndSort(allItems, bigPictureSortOrder)
@@ -210,9 +206,13 @@ const getGroupedItemsForMainLandscape = createSelector(
         href: stringifyParams({filters: newFilters, grouping: 'landscape', sortField, mainContentMode: 'card-mode'}),
         subcategories: landscape.filter( (l) => l.parentId === category.id).map(function(subcategory) {
           const newFilters = {...filters, landscape: subcategory.id };
+          const hrefCalc = stringifyParams({filters: newFilters, grouping: 'landscape', sortField, mainContentMode: 'card-mode'})
+          //console.log("called hrefCalc: " + hrefCalc)
+          //console.log("called subcategory.label: " + subcategory.label)
+          //console.log("called category.label: " + category.label)
           return {
             name: subcategory.label,
-            href: stringifyParams({filters: newFilters, grouping: 'landscape', sortField, mainContentMode: 'card-mode'}),
+            href: hrefCalc,
             items: itemsMap[subcategory.id] || [],
             allItems: allItemsMap[subcategory.id] || []
           };

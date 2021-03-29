@@ -28,7 +28,6 @@ async function main() {
     'branch',
     'project',
     'url_for_bestpractices',
-    'enduser',
     'open_source',
     'allow_duplicate_repo',
     'unnamed_organization',
