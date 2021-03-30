@@ -116,7 +116,7 @@ const Fullscreen = _ => {
             paddingTop: 3,
             paddingBottom: 3,
             borderRadius: 5
-          }}>Greyed logos are not open source</div> }
+          }}></div> }
           <div style={{
             position: 'absolute',
             top: 10,
