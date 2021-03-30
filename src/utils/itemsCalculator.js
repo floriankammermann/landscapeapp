@@ -148,8 +148,7 @@ const getGroupedItems = createSelector(
         key: properKey,
         header: groupingLabel(grouping, properKey),
         items: value,
-        href: "https://cncf.io"
-        //href: stringifyParams({filters: newFilters, grouping, sortField})
+        href: stringifyParams({filters: newFilters, grouping, sortField})
       }
     }), (group) => groupingOrder(grouping)(group.key));
   }
