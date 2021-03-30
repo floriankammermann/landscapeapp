@@ -12,6 +12,7 @@ const { emojify } = require('node-emoji')
 
 import actualTwitter from './actualTwitter';
 import saneName from '../src/utils/saneName';
+import uuid from '../src/utils/uuid';
 import formatCity from '../src/utils/formatCity';
 import pack from '../src/utils/packArray';
 
@@ -253,11 +254,6 @@ async function main () {
     }
     delete item.crunchbase_data;
     delete item.twitter_data;
-    if (item.crunchbaseData) {
-      delete item.crunchbaseData.num_employees_min;
-      delete item.crunchbaseData.num_employees_max;
-      delete item.crunchbaseData.ticker_symbol;
-    }
     delete item.best_practice_data;
     delete item.market_cap;
     delete item.first_commit_date;
@@ -267,7 +263,8 @@ async function main () {
     delete item.first_commit_link;
     delete item.latest_commit_link;
     delete item.item;
-    const id = saneName(item.name);
+
+    const id = saneName(item.name) + "-" + uuid()
     return {
       ...item,
       id: id,
