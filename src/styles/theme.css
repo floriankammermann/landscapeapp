@@ -675,3 +675,9 @@ html:not(.big-picture) .right-buttons {
   min-height: 26px !important;
 }
 
+h1::after {
+   content: 'BETA';
+   font-size: 12px;
+   vertical-align: top;
+   margin-left: 5px;
+}
