@@ -22,10 +22,14 @@ const LargeItem = ({ item, onClick }) => {
       .large-item {
         cursor: pointer;
         position: relative;
-        background: ${color};
         visibility: ${item.isVisible ? 'visible' : 'hidden'};
         width: ${largeItemWidth}px;
         height: ${largeItemHeight}px;
+        border: 1px solid;
+        border-radius: 2px;
+        padding: 1px;
+        overflow-wrap: break-word;
+        overflow:hidden;
       }
 
       .large-item img {
@@ -49,7 +53,7 @@ const LargeItem = ({ item, onClick }) => {
       }
     `}</style>
 
-    <img loading="lazy" src={assetPath(item.href)} data-href={item.id} alt={item.name} />
+    <span data-href={item.id} onClick={onClick} title={item.name}>{item.name}</span>
     <div className="label">{label}</div>
   </div>;
 }
