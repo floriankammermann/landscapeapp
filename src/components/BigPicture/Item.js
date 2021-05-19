@@ -70,7 +70,8 @@ const SmallItem = ({ item, onClick }) => {
         border-radius: 2px;
         padding: 1px;
         visibility: ${item.isVisible ? 'visible' : 'hidden'};
-        font-size: 10px;
+        font-size: 8.5px;
+        line-height: 9px;
         overflow-wrap: break-word;
         overflow:hidden;
       }
