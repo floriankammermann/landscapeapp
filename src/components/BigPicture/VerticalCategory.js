@@ -31,7 +31,7 @@ const VerticalCategory = ({header, subcategories, top, left, width, height, colo
           const extraStyle = fitWidth ? { justifyContent: 'space-evenly' } : { gridGap: itemMargin }
 
           return <div key={subcategory.name} style={{position: 'relative'}}>
-            <div style={{ lineHeight: '15px', textAlign: 'center'}}>
+            <div style={{ lineHeight: '15px', marginTop: '20px', marginBottom: '10px', textAlign: 'center'}}>
               <InternalLink to={subcategory.href} style={{ color: '#282828', fontSize: 11 }}>
                 {subcategory.name}
               </InternalLink>
